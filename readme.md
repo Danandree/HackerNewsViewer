@@ -1,4 +1,4 @@
-# Hacker News
+# Hacker News Viewer
 Applicazione che si connette al servizio Hacker News e ne riporta le notizie.
 <br>
 Una volta aperta si connette alle API del servizio e riporta le prime 10 notizie, per caricarne altre premere il pulsante in fondo alla pagina.<br>
@@ -17,6 +17,5 @@ Clicca sulla scheda della notizia per accedervi.<br>
 
 ### L'applicazione è disponibile al seguente link:
 <!-- ``` -->
-- Link1
-- Link2
+- [Haker News Viewer](https://hakernewsviewer.web.app/)
 <!-- ``` -->
