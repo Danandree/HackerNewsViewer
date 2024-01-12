@@ -9,7 +9,7 @@ Clicca sulla scheda della notizia per accedervi.<br>
 
 > [!NOTE] 
 > Se l'applicazione non riesce a risalire all'immagine della notizia verrà visualizzata l'immaginie di default.<br>
-![Immagine di default](assets/img/newsDefault.png)
+![Immagine di default](src/assets/img/newsDefault.png)
 
 > [!IMPORTANT]
 > L'API Hacker News restiruisce 500 notizie. <br>
