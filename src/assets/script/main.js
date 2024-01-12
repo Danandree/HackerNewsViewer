@@ -45,20 +45,20 @@ class NewsApp {
       try {
         let newsUrl = new URL(this.baseUrl + "item/" + id + ".json");
         let response = await fetch(newsUrl);
-        var data = await response.json();
+        let data = await response.json();
         let dataUrl = _.get(data, "url", 0);
         let dataTitle = _.get(data, "title", 0);
         if (!data || dataTitle == 0 || dataUrl == 0) {
           i--;
           continue;
         }
+        data.imageUrl = await this.getOGimage(data.url);
+        createNewsCard(this.container, data, this.defaultImageUrl);
       } catch (e) {
         console.log("getNewsFromId Error: " + e);
         i--;
         continue;
       }
-      data.imageUrl = await this.getOGimage(data.url);
-      createNewsCard(this.container, data, this.defaultImageUrl);
     }
     newsTest == 1 ? (this.button.innerHTML = "Altre news") : (this.button.innerHTML = this.testoPulsanteErrore);
   }
@@ -71,7 +71,6 @@ class NewsApp {
       const html = parser.parseFromString(data, "text/html");
       const imageUrl = html.querySelector('meta[property="og:image"]').getAttribute("content");
       const completeImgUrl = new URL(imageUrl);
-      console.log(completeImgUrl);
       if (!completeImgUrl.protocol.startsWith("http")) {
         return this.defaultImageUrl;
       }
