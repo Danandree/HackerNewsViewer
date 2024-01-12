@@ -81,11 +81,15 @@ class NewsApp {
     }
   }
   async isImgUrl(url) {
-    return fetch(url, {method: 'HEAD'}).then(res => {
-      return res.headers.get('Content-Type').startsWith('image')
-    })
+    try {
+      let response = await fetch(url, { method: 'HEAD' });
+      let data = await response.headers.get('Content-Type').startsWith('image');
+      return data;
+    } catch (e) {
+      console.log("isImgUrl Error: " + e);
+      return false;
+    }
   }
-  
 }
 
 const newsApp = new NewsApp();
