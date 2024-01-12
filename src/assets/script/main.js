@@ -1,6 +1,5 @@
 import "../css/style.css";
 import defaultnewsImage from "../img/newsDefault.png";
-// import favicon from "../img/hacker-news-icon.png";
 import _ from "lodash";
 import { createNewsCard } from "./createCard.js";
 
@@ -13,6 +12,7 @@ class NewsApp {
   idArray = [];
   defaultImageUrl = defaultnewsImage;
   testoPulsanteErrore = "Errore... Clicca per ricaricare";
+  newsDaVisualizzare = 10;
   constructor() {
     this.button.addEventListener("click", this.getNewsFromId.bind(this));
   }
@@ -31,7 +31,7 @@ class NewsApp {
   }
 
   async getNewsFromId() {
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < this.newsDaVisualizzare; i++) {
       let id = this.idArray.shift();
       if (!id) {
         newsTest = await this.getNewsIds();
@@ -69,10 +69,13 @@ class NewsApp {
       let data = await mainUrlResponse.text();
       const parser = new DOMParser();
       const html = parser.parseFromString(data, "text/html");
-      const imageUrl = html
-        .querySelector('meta[property="og:image"]')
-        .getAttribute("content");
-      return new URL(imageUrl);
+      const imageUrl = html.querySelector('meta[property="og:image"]').getAttribute("content");
+      const completeImgUrl = new URL(imageUrl);
+      console.log(completeImgUrl);
+      if (!completeImgUrl.protocol.startsWith("http")) {
+        return this.defaultImageUrl;
+      }
+      return completeImgUrl;
     } catch (e) {
       console.log("getOGImage Error: " + e);
       return this.defaultImageUrl;

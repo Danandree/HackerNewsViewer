@@ -1,10 +1,8 @@
 export function createNewsCard(container, obj, defaultImageUrl) {
   const div = createElement("div", "news-card", container);
-  div.addEventListener("click", () => {
-    window.location.href = obj.url;
-  });
+  div.addEventListener("click", () => { window.location.href = obj.url; });
   const imgDiv = createElement("div", "news-card-img", div);
-  imgDiv.style.backgroundImage = `url(${defaultImageUrl})`;
+  // imgDiv.style.backgroundImage = `url(${defaultImageUrl})`;
   imgDiv.style.backgroundImage = `url(${obj.imageUrl})`;
   imgDiv.style.backgroundSize = "cover";
   const footerDiv = createElement("div", "news-card-footer", div);
