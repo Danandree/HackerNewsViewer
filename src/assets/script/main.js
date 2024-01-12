@@ -70,16 +70,22 @@ class NewsApp {
       const parser = new DOMParser();
       const html = parser.parseFromString(data, "text/html");
       const imageUrl = html.querySelector('meta[property="og:image"]').getAttribute("content");
-      const completeImgUrl = new URL(imageUrl);
-      if (!completeImgUrl.protocol.startsWith("http")) {
+      let testImg = await this.isImgUrl(new URL(this.proxyUrl + imageUrl));
+      if (!testImg) {
         return this.defaultImageUrl;
       }
-      return completeImgUrl;
+      return new URL(imageUrl);
     } catch (e) {
       console.log("getOGImage Error: " + e);
       return this.defaultImageUrl;
     }
   }
+  async isImgUrl(url) {
+    return fetch(url, {method: 'HEAD'}).then(res => {
+      return res.headers.get('Content-Type').startsWith('image')
+    })
+  }
+  
 }
 
 const newsApp = new NewsApp();
